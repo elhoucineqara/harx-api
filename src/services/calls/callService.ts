@@ -1,6 +1,6 @@
 import Call, { ICall } from '../../models/Call';
 import dbConnect from '../../lib/dbConnect';
-import { TwilioService } from '../integrations/twilioService';
+import { TwilioService } from '../services/integrations/TwilioService';
 
 import OpenAI from 'openai';
 
