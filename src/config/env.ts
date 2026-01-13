@@ -4,12 +4,12 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const config = {
-  PORT: process.env.PORT || 3001,
-  MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/harx',
-  JWT_SECRET: process.env.JWT_SECRET || 'your-secret-key',
-  JWT_EXPIRE: process.env.JWT_EXPIRE || '24h',
-  NODE_ENV: process.env.NODE_ENV || 'development',
-  FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
+  PORT: process.env.PORT,
+  MONGODB_URI: process.env.MONGODB_URI,
+  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRE: process.env.JWT_EXPIRE,
+  NODE_ENV: process.env.NODE_ENV,
+  FRONTEND_URL: process.env.FRONTEND_URL,
   
   // Twilio
   TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
@@ -37,7 +37,7 @@ export const config = {
   
   // Google Cloud
   GOOGLE_CLOUD_PROJECT_ID: process.env.GOOGLE_CLOUD_PROJECT_ID,
-  GOOGLE_CLOUD_LOCATION: process.env.GOOGLE_CLOUD_LOCATION || 'us-central1',
+  GOOGLE_CLOUD_LOCATION: process.env.GOOGLE_CLOUD_LOCATION,
   GOOGLE_CLOUD_STORAGE_BUCKET: process.env.GOOGLE_CLOUD_STORAGE_BUCKET,
   GOOGLE_APPLICATION_CREDENTIALS: process.env.GOOGLE_APPLICATION_CREDENTIALS,
   
@@ -50,10 +50,10 @@ export const config = {
   telnyxApiKey: process.env.TELNYX_API_KEY, // Alias for compatibility
   TELNYX_PUBLIC_KEY: process.env.TELNYX_PUBLIC_KEY,
   TELNYX_APP_ID: process.env.TELNYX_APP_ID,
-  TELNYX_API_URL: process.env.TELNYX_API_URL || 'https://api.telnyx.com/v2',
+  TELNYX_API_URL: process.env.TELNYX_API_URL,
   TELNYX_WEBHOOK_URL: process.env.TELNYX_WEBHOOK_URL,
   telnyxWebhookSecret: process.env.TELNYX_WEBHOOK_SECRET,
-  BASE_URL: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3001}`,
+  BASE_URL: process.env.BASE_URL,
   
   // LinkedIn
   LINKEDIN_CLIENT_ID: process.env.LINKEDIN_CLIENT_ID || process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_ID,
@@ -65,15 +65,11 @@ export const config = {
   
   // Email Service (Brevo/Sendinblue)
   BREVO_API_KEY: process.env.BREVO_API_KEY,
-  BREVO_FROM_EMAIL: process.env.BREVO_FROM_EMAIL || 'no-reply@harx.ai',
-  SMTP_SENDER_NAME: process.env.SMTP_SENDER_NAME || 'HARX',
-  DISABLE_EMAIL_SENDING: process.env.DISABLE_EMAIL_SENDING === 'true',
+  BREVO_FROM_EMAIL: process.env.BREVO_FROM_EMAIL,
+  SMTP_SENDER_NAME: process.env.SMTP_SENDER_NAME,
+  DISABLE_EMAIL_SENDING: process.env.DISABLE_EMAIL_SENDING,
 
   // Backend URL
   BACKEND_URL: process.env.BACKEND_URL,
   REACT_APP_URL: process.env.REACT_APP_URL,
 };
-
-// Export telnyxApiKey as alias for TELNYX_API_KEY (for compatibility)
-// export const telnyxApiKey = config.TELNYX_API_KEY;
-

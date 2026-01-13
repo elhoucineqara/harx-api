@@ -9,8 +9,8 @@ import { cleanAndFormatResponse, parseJsonResponseContactCenter } from './utils/
 
 // Configuration (should be in env vars)
 const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID;
-const LOCATION = process.env.GOOGLE_CLOUD_LOCATION || 'us-central1';
-const BUCKET_NAME = process.env.GOOGLE_CLOUD_STORAGE_BUCKET || 'harx-audios-test';
+const LOCATION = process.env.GOOGLE_CLOUD_LOCATION;
+const BUCKET_NAME = process.env.GOOGLE_CLOUD_STORAGE_BUCKET;
 
 // Service Account setup
 // Note: In production, it's better to use environment variables for credentials content

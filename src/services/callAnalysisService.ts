@@ -16,7 +16,7 @@ const clientSecret = process.env.QAUTH2_CLIENT_SECRET;
 const scope = process.env.QAUTH2_SCOPE;
 const redirectUrl = process.env.REDIRECTION_URL;
 const project = process.env.GOOGLE_CLOUD_PROJECT || 'harx-technologies-inc';
-const location = 'us-central1';
+const location = process.env.GOOGLE_CLOUD_LOCATION;
 
 // Construct the absolute path to the service account JSON file
 const keyPath = path.join(__dirname, "../../config/vertex-ai-key.json");
@@ -34,7 +34,7 @@ export const audioUpload2 = async (fileBuffer: Buffer, destinationName: string) 
         projectId: project,
         keyFilename: storageServicekeyPath,
     });
-    const bucketName = "harx-audios-test";
+    const bucketName = process.env.GOOGLE_CLOUD_STORAGE_BUCKET || "harx-audios-test";
 
     try {
         const bucket = storage.bucket(bucketName);

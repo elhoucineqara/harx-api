@@ -1,12 +1,12 @@
 require('dotenv').config();
 
 const config = {
-  PORT: process.env.PORT || 3001,
-  MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/harx',
-  JWT_SECRET: process.env.JWT_SECRET || 'your-secret-key',
-  JWT_EXPIRE: process.env.JWT_EXPIRE || '24h',
-  NODE_ENV: process.env.NODE_ENV || 'development',
-  FRONTEND_URL: process.env.FRONTEND_URL || 'http://localhost:5173',
+  PORT: process.env.PORT,
+  MONGODB_URI: process.env.MONGODB_URI,
+  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRE: process.env.JWT_EXPIRE,
+  NODE_ENV: process.env.NODE_ENV,
+  FRONTEND_URL: process.env.FRONTEND_URL,
   
   // Twilio
   TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
@@ -19,7 +19,7 @@ const config = {
   ZOHO_CLIENT_SECRET: process.env.ZOHO_CLIENT_SECRET,
   ZOHO_SCOPE: process.env.ZOHO_SCOPE,
   ZOHO_REDIRECT_URI: process.env.ZOHO_REDIRECT_URI,
-  ZOHO_TOKEN_URL: process.env.ZOHO_TOKEN_URL || 'https://accounts.zoho.eu/oauth/v2/token',
+  ZOHO_TOKEN_URL: process.env.ZOHO_TOKEN_URL,
   ZOHO_API_URL: process.env.ZOHO_API_URL,
   ZOHO_SALESIQ_PORTAL_ID: process.env.ZOHO_SALESIQ_PORTAL_ID,
   
@@ -47,12 +47,12 @@ const config = {
   telnyxApiKey: process.env.TELNYX_API_KEY,
   TELNYX_PUBLIC_KEY: process.env.TELNYX_PUBLIC_KEY,
   TELNYX_APP_ID: process.env.TELNYX_APP_ID,
-  TELNYX_API_URL: process.env.TELNYX_API_URL || 'https://api.telnyx.com/v2',
+  TELNYX_API_URL: process.env.TELNYX_API_URL,
   TELNYX_WEBHOOK_URL: process.env.TELNYX_WEBHOOK_URL,
-  BASE_URL: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3001}`,
+  BASE_URL: process.env.BASE_URL,
   
   // LinkedIn
-  LINKEDIN_CLIENT_ID: process.env.LINKEDIN_CLIENT_ID || process.env.NEXT_PUBLIC_LINKEDIN_CLIENT_ID,
+  LINKEDIN_CLIENT_ID: process.env.LINKEDIN_CLIENT_ID,
   LINKEDIN_CLIENT_SECRET: process.env.LINKEDIN_CLIENT_SECRET,
   
   // External Services
@@ -61,9 +61,9 @@ const config = {
   
   // Email Service (Brevo/Sendinblue)
   BREVO_API_KEY: process.env.BREVO_API_KEY,
-  BREVO_FROM_EMAIL: process.env.BREVO_FROM_EMAIL || 'no-reply@harx.ai',
-  SMTP_SENDER_NAME: process.env.SMTP_SENDER_NAME || 'HARX',
-  DISABLE_EMAIL_SENDING: process.env.DISABLE_EMAIL_SENDING === 'true',
+  BREVO_FROM_EMAIL: process.env.BREVO_FROM_EMAIL,
+  SMTP_SENDER_NAME: process.env.SMTP_SENDER_NAME,
+  DISABLE_EMAIL_SENDING: process.env.DISABLE_EMAIL_SENDING,
 
   // Backend URL
   BACKEND_URL: process.env.BACKEND_URL,

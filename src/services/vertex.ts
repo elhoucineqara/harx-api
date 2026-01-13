@@ -16,7 +16,7 @@ const clientSecret = process.env.QAUTH2_CLIENT_SECRET;
 const scope = process.env.QAUTH2_SCOPE;
 const redirectUrl = process.env.REDIRECTION_URL;
 const project = process.env.QAUTH2_PROJECT_ID || 'harx-ai'; // Valeur par défaut
-const location = 'us-central1';
+const location = process.env.GOOGLE_CLOUD_LOCATION;
 
 // Vérifier que les variables d'environnement requises sont définies
 const requiredEnvVars = {
