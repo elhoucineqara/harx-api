@@ -6,7 +6,7 @@ const verifyCredentials = async (apiKey: string) => {
         sgClient.setApiKey(apiKey);
         sgMail.setApiKey(apiKey);
 
-        const [userResponse, statsResponse] = await Promise.all([
+        const [[userResponse], [statsResponse]] = await Promise.all([
             sgClient.request({
                 url: '/v3/user',
                 method: 'GET'
@@ -17,26 +17,29 @@ const verifyCredentials = async (apiKey: string) => {
             })
         ]);
 
+        const userBody = userResponse.body as any;
+        const statsBody = statsResponse.body as any;
+
         return {
             isValid: true,
             accountInfo: {
-                accountId: userResponse.body.id,
-                planType: userResponse.body.type,
-                monthlyQuota: userResponse.body.plan_quota,
-                monthlyUsage: statsResponse.body[0].requests,
+                accountId: userBody.id,
+                planType: userBody.type,
+                monthlyQuota: userBody.plan_quota,
+                monthlyUsage: statsBody[0]?.requests || 0,
                 verifiedSenders: await listVerifiedSenders(apiKey),
                 settings: {
-                    username: userResponse.body.username,
-                    email: userResponse.body.email
+                    username: userBody.username,
+                    email: userBody.email
                 }
             },
             userInfo: {
-                accountName: userResponse.body.username,
-                email: userResponse.body.email,
-                firstName: userResponse.body.first_name,
-                lastName: userResponse.body.last_name,
-                role: userResponse.body.type,
-                status: userResponse.body.status
+                accountName: userBody.username,
+                email: userBody.email,
+                firstName: userBody.first_name,
+                lastName: userBody.last_name,
+                role: userBody.type,
+                status: userBody.status
             }
         };
     } catch (error) {
@@ -47,20 +50,20 @@ const verifyCredentials = async (apiKey: string) => {
     }
 };
 
-const listVerifiedSenders = async (apiKey) => {
+const listVerifiedSenders = async (apiKey: string) => {
     try {
         sgClient.setApiKey(apiKey);
-        const response = await sgClient.request({
+        const [response] = await sgClient.request({
             url: '/v3/verified_senders',
             method: 'GET'
         });
-        return response.body.results;
+        return (response.body as any).results;
     } catch (error) {
         throw new Error(`Failed to list verified senders: ${error.message}`);
     }
 };
 
-const sendEmail = async (apiKey, emailData) => {
+const sendEmail = async (apiKey: string, emailData: { to: any; from: any; subject: any; text: any; html: any; cc: any; bcc: any; attachments: any; templateId: any; templateData: any; }) => {
     try {
         sgMail.setApiKey(apiKey);
         const response = await sgMail.send({
@@ -81,10 +84,10 @@ const sendEmail = async (apiKey, emailData) => {
     }
 };
 
-const createTemplate = async (apiKey, templateData) => {
+const createTemplate = async (apiKey: string, templateData: any) => {
     try {
         sgClient.setApiKey(apiKey);
-        const response = await sgClient.request({
+        const [response] = await sgClient.request({
             url: '/v3/templates',
             method: 'POST',
             body: templateData
@@ -95,10 +98,10 @@ const createTemplate = async (apiKey, templateData) => {
     }
 };
 
-const getTemplate = async (apiKey, templateId) => {
+const getTemplate = async (apiKey: string, templateId: any) => {
     try {
         sgClient.setApiKey(apiKey);
-        const response = await sgClient.request({
+        const [response] = await sgClient.request({
             url: `/v3/templates/${templateId}`,
             method: 'GET'
         });
@@ -108,23 +111,23 @@ const getTemplate = async (apiKey, templateId) => {
     }
 };
 
-const listTemplates = async (apiKey) => {
+const listTemplates = async (apiKey: string) => {
     try {
         sgClient.setApiKey(apiKey);
-        const response = await sgClient.request({
+        const [response] = await sgClient.request({
             url: '/v3/templates',
             method: 'GET'
         });
-        return response.body.templates;
+        return (response.body as any).templates;
     } catch (error) {
         throw new Error(`Failed to list SendGrid templates: ${error.message}`);
     }
 };
 
-const getEmailStats = async (apiKey, filters = {}) => {
+const getEmailStats = async (apiKey: string, filters = {}) => {
     try {
         sgClient.setApiKey(apiKey);
-        const response = await sgClient.request({
+        const [response] = await sgClient.request({
             url: '/v3/stats',
             method: 'GET',
             qs: filters
@@ -135,10 +138,10 @@ const getEmailStats = async (apiKey, filters = {}) => {
     }
 };
 
-const verifySender = async (apiKey, senderData) => {
+const verifySender = async (apiKey: string, senderData: any) => {
     try {
         sgClient.setApiKey(apiKey);
-        const response = await sgClient.request({
+        const [response] = await sgClient.request({
             url: '/v3/verified_senders',
             method: 'POST',
             body: senderData
