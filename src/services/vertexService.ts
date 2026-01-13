@@ -20,7 +20,7 @@ const location = process.env.LOCATION;
 
 
 // Construct the absolute path to the service account JSON file
-const vertexServicekeyPath = path.join(__dirname, "../../config/vertex-service-account.json");
+const vertexServicekeyPath = process.env.VERTEX_SERVICE_KEY_PATH;
 
 // Authenticate to Google cloud using the vertex service account
 const auth = new GoogleAuth({
@@ -65,8 +65,7 @@ export const authenticate = async () => {
 
 export const summarizeAudio = async (accessToken: string, fileUri: string, prompt: string) => {
   try {
-    const vertexAiEndpoint =
-      "https://us-central1-aiplatform.googleapis.com/v1/projects/harx-technologies-inc/locations/us-central1/publishers/google/models/gemini-2.0-flash-exp:generateContent";
+    const vertexAiEndpoint = process.env.VERTEX_AI_ENDPOINT;
     // Étape 2 : Préparer le corps de la requête pour Vertex AI
     const vertexBody = {
       contents: {
