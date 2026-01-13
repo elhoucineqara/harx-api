@@ -13,8 +13,7 @@ dotenv.config();
 // Ensure credentials path is absolute
 // Try multiple possible env var names for compatibility
 const credentialsEnv = process.env.GOOGLE_APPLICATION_CREDENTIALS || 
-                       process.env.GOOGLE_CREDENTIALS_PATH ||
-                       '';
+                       process.env. GOOGLE_CREDENTIALS_PATH;
 // Only resolve if it's a valid path (not a placeholder like "path/to/file.json")
 let credentialsPath = '';
 if (credentialsEnv && 
@@ -55,8 +54,8 @@ if (credentialsEnv &&
 // Vertex AI Configuration
 export const VERTEX_CONFIG = {
   project: process.env.GOOGLE_CLOUD_PROJECT || process.env.GOOGLE_CLOUD_PROJECT_ID,
-  location: process.env.VERTEX_AI_LOCATION || process.env.GOOGLE_CLOUD_LOCATION || 'us-central1',
-  modelName: process.env.VERTEX_AI_MODEL || 'gemini-1.5-flash-001',
+  location: process.env.VERTEX_AI_LOCATION || process.env.GOOGLE_CLOUD_LOCATION,
+  modelName: process.env.VERTEX_AI_MODEL,
   credentials: credentialsPath
 };
 
