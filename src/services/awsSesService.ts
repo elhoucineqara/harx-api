@@ -16,7 +16,7 @@ const verifyCredentials = async (accessKeyId: any, secretAccessKey: any, region:
         return {
             isValid: true,
             accountInfo: {
-                accountId: accountResponse.AccountId,
+                accountId: (accountResponse as any).AccountId || 'AWS Account',
                 sendingQuota: {
                     max24HourSend: quotaResponse.Max24HourSend,
                     maxSendRate: quotaResponse.MaxSendRate,
@@ -24,7 +24,7 @@ const verifyCredentials = async (accessKeyId: any, secretAccessKey: any, region:
                 },
                 verifiedIdentities: await listVerifiedIdentities(ses),
                 settings: {
-                    sendingEnabled: accountResponse.AccountSendingEnabled
+                    sendingEnabled: accountResponse.Enabled
                 }
             },
             userInfo: {

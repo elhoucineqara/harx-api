@@ -141,8 +141,7 @@ const transitionIssue = async (userId, issueIdOrKey, transitionId) => {
 // Get boards
 const getBoards = async (userId, projectKeyOrId = null) => {
     const jira = await createJiraClient(userId);
-    const params = projectKeyOrId ? { projectKeyOrId } : {};
-    return jira.getAllBoards(params);
+    return (jira as any).getAllBoards(0, 50, undefined, undefined, projectKeyOrId);
 };
 
 // Get sprints

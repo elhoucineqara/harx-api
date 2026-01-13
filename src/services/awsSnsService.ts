@@ -112,13 +112,11 @@ const deleteTopic = async (userId, topicArn) => {
 // List subscriptions
 const listSubscriptions = async (userId, topicArn = null) => {
     const sns = await createSnsClient(userId);
-    const params = topicArn ? { TopicArn: topicArn } : {};
-    
     const response = topicArn 
-        ? await sns.listSubscriptionsByTopic(params).promise() 
-        : await sns.listSubscriptions(params).promise();
+        ? await sns.listSubscriptionsByTopic({ TopicArn: topicArn }).promise() 
+        : await sns.listSubscriptions().promise();
     
-    return topicArn ? response.Subscriptions : response.Subscriptions;
+    return response.Subscriptions;
 };
 
 // Subscribe to topic

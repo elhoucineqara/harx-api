@@ -6,7 +6,7 @@ const verifyCredentials = async (accessToken: any) => {
         
         // Get account information
         const accountInfo = await hubspotClient.crm.owners.ownersApi.getPage();
-        const settings = await hubspotClient.settings.users.apiGetUser(accountInfo.results[0].id);
+        const settings: any = await hubspotClient.settings.users.usersApi.getById(accountInfo.results[0].id);
         
         return {
             isValid: true,
@@ -34,7 +34,7 @@ const verifyCredentials = async (accessToken: any) => {
 const refreshAccessToken = async (clientId, clientSecret, refreshToken) => {
     try {
         const hubspotClient = new hubspot.Client();
-        const result = await hubspotClient.oauth.tokensApi.createToken(
+        const result = await hubspotClient.oauth.tokensApi.create(
             'refresh_token',
             undefined,
             undefined,
