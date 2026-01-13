@@ -1,7 +1,8 @@
-// @ts-nocheck
-const { DashboardRepository } = require('../repositories/DashboardRepository');
+import { DashboardRepository } from '../repositories/DashboardRepository';
 
 class DashboardService {
+  private readonly repository: DashboardRepository;
+
   constructor() {
     this.repository = new DashboardRepository();
   }
@@ -10,7 +11,7 @@ class DashboardService {
     const [calls, agents, leads] = await this.repository.getStats();
 
     return {
-      activeGigs: agents.filter(agent => agent.status === 'active').length,
+      activeGigs: agents.filter(agent => agent.status === 'completed').length,
       globalReps: agents.length,
       successRate: (calls.filter(call => call.status === 'completed').length / calls.length) * 100 || 0,
       revenue: leads.reduce((acc, lead) => acc + (lead.value || 0), 0)
@@ -24,20 +25,20 @@ class DashboardService {
   async getTopGigs() {
     const agents = await this.repository.getTopGigs();
     return agents.map(agent => ({
-      name: agent.name,
-      success: agent.performance.success_rate,
-      calls: agent.performance.calls_handled,
-      revenue: agent.performance.customer_satisfaction
+      name: agent.name || (agent as any).personalInfo?.name || 'Unknown',
+      success: agent.performance?.success_rate || 0,
+      calls: agent.performance?.calls_handled || 0,
+      revenue: agent.performance?.customer_satisfaction || 0
     }));
   }
 
   async getTopReps() {
     const agents = await this.repository.getTopReps();
     return agents.map(agent => ({
-      name: agent.name,
-      rating: agent.rating,
-      calls: agent.performance.calls_handled,
-      revenue: agent.performance.customer_satisfaction
+      name: agent.name || (agent as any).personalInfo?.name || 'Unknown',
+      rating: agent.rating || 0,
+      calls: agent.performance?.calls_handled || 0,
+      revenue: agent.performance?.customer_satisfaction || 0
     }));
   }
 }

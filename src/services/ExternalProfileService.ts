@@ -1,6 +1,5 @@
-const axios = require('axios');
-require('dotenv').config();
-const logger = require('../utils/logger');
+import axios from 'axios';
+import { logger } from '../utils/logger';
 
 const repProfileApiBaseUrl = process.env.REP_PROFILE_API || 'https://api-repcreationwizard.harx.ai/api';
 

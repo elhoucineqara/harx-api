@@ -1,8 +1,8 @@
-const AWS = require('aws-sdk');
-const AwsSnsIntegration = require('../../models/awsSnsIntegration');
+import AWS from 'aws-sdk';
+import AwsSnsIntegration from '../models/AwsSnsIntegration';
 
 // Create AWS SNS client
-const createSnsClient = async (userId) => {
+const createSnsClient = async (userId: any) => {
     const integration = await AwsSnsIntegration.findOne({ userId });
     if (!integration) throw new Error('AWS SNS integration not found');
 

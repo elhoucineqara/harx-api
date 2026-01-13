@@ -14,6 +14,7 @@ export interface ILead extends Document {
   Pipeline?: string;
   name?: string;
   company?: string;
+  value?: number;
   metadata?: any;
   createdAt: Date;
   updatedAt: Date;
@@ -33,6 +34,7 @@ const leadSchema = new Schema<ILead>({
   Pipeline: String,
   name: String,
   company: String,
+  value: Number,
   metadata: Schema.Types.Mixed
 }, { timestamps: true });
 

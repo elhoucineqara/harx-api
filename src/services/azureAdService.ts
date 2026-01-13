@@ -1,8 +1,8 @@
-const { ConfidentialClientApplication } = require('@azure/msal-node');
-const AzureAdIntegration = require('../../models/azureAdIntegration');
+import { ConfidentialClientApplication } from '@azure/msal-node';
+import AzureAdIntegration from '../models/AzureAdIntegration';
 
 // Create MSAL client
-const createMsalClient = async (userId) => {
+const createMsalClient = async (userId: any) => {
     const integration = await AzureAdIntegration.findOne({ userId });
     if (!integration) throw new Error('Azure AD integration not found');
 
@@ -18,7 +18,7 @@ const createMsalClient = async (userId) => {
 };
 
 // Setup Azure AD Integration
-const setupAzureAd = async (userId, tenantId, clientId, clientSecret, redirectUri) => {
+const setupAzureAd = async (userId: any, tenantId: string, clientId: string, clientSecret: string, redirectUri: string) => {
     let integration = await AzureAdIntegration.findOne({ userId });
 
     if (!integration) {
@@ -45,7 +45,7 @@ const setupAzureAd = async (userId, tenantId, clientId, clientSecret, redirectUr
 };
 
 // Get authorization URL
-const getAuthUrl = async (userId) => {
+const getAuthUrl = async (userId: any) => {
     const integration = await AzureAdIntegration.findOne({ userId });
     if (!integration) throw new Error('Azure AD integration not found');
 
@@ -61,7 +61,7 @@ const getAuthUrl = async (userId) => {
 };
 
 // Exchange auth code for tokens
-const exchangeCodeForToken = async (userId, authCode) => {
+const exchangeCodeForToken = async (userId: any, authCode: any) => {
     const integration = await AzureAdIntegration.findOne({ userId });
     if (!integration) throw new Error('Azure AD integration not found');
 
@@ -77,8 +77,7 @@ const exchangeCodeForToken = async (userId, authCode) => {
         const response = await msalClient.acquireTokenByCode(tokenRequest);
         
         integration.accessToken = response.accessToken;
-        integration.refreshToken = response.refreshToken;
-        integration.tokenExpiresAt = new Date(Date.now() + response.expiresIn * 1000);
+        integration.tokenExpiresAt = response.expiresOn || new Date(Date.now() + 3600 * 1000);
         integration.status = 'connected';
         integration.lastConnectionAt = new Date();
         
@@ -92,7 +91,7 @@ const exchangeCodeForToken = async (userId, authCode) => {
 };
 
 // Refresh token
-const refreshToken = async (userId) => {
+const refreshToken = async (userId: any) => {
     const integration = await AzureAdIntegration.findOne({ userId });
     if (!integration) throw new Error('Azure AD integration not found');
     if (!integration.refreshToken) throw new Error('No refresh token available');
@@ -108,10 +107,7 @@ const refreshToken = async (userId) => {
         const response = await msalClient.acquireTokenByRefreshToken(silentRequest);
         
         integration.accessToken = response.accessToken;
-        if (response.refreshToken) {
-            integration.refreshToken = response.refreshToken;
-        }
-        integration.tokenExpiresAt = new Date(Date.now() + response.expiresIn * 1000);
+        integration.tokenExpiresAt = response.expiresOn || new Date(Date.now() + 3600 * 1000);
         integration.status = 'connected';
         integration.lastConnectionAt = new Date();
         
@@ -125,7 +121,7 @@ const refreshToken = async (userId) => {
 };
 
 // Get valid access token (refreshes if needed)
-const getAccessToken = async (userId) => {
+const getAccessToken = async (userId: any) => {
     const integration = await AzureAdIntegration.findOne({ userId });
     if (!integration) throw new Error('Azure AD integration not found');
 
@@ -144,7 +140,7 @@ const getAccessToken = async (userId) => {
 };
 
 // Disconnect Azure AD
-const disconnectAzureAd = async (userId) => {
+const disconnectAzureAd = async (userId: any) => {
     const integration = await AzureAdIntegration.findOne({ userId });
     if (!integration) throw new Error('Azure AD integration not found');
 
@@ -154,7 +150,7 @@ const disconnectAzureAd = async (userId) => {
 };
 
 // Get Azure AD Integration Status
-const getAzureAdStatus = async (userId) => {
+const getAzureAdStatus = async (userId: any) => {
     const integration = await AzureAdIntegration.findOne({ userId });
     if (!integration) throw new Error('Azure AD integration not found');
     

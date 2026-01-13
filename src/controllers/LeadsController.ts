@@ -89,7 +89,7 @@ export const createLead = async (req: Request, res: Response) => {
     }
     
     // Remove fields that are not in the schema
-    const allowedFields = ['userId', 'companyId', 'gigId', 'Last_Activity_Time', 'Activity_Tag', 'Deal_Name', 'Stage', 'Email_1', 'Phone', 'Telephony', 'Pipeline'];
+    const allowedFields = ['userId', 'companyId', 'gigId', 'Last_Activity_Time', 'Activity_Tag', 'Deal_Name', 'Stage', 'Email_1', 'Phone', 'Telephony', 'Pipeline', 'value'];
     const cleanedData: any = {};
     for (const field of allowedFields) {
       if (leadData[field] !== undefined) {
@@ -201,7 +201,7 @@ export const createBulkLeads = async (req: Request, res: Response) => {
       }
       
       // Remove fields that are not in the schema
-      const allowedFields = ['userId', 'companyId', 'gigId', 'Last_Activity_Time', 'Activity_Tag', 'Deal_Name', 'Stage', 'Email_1', 'Phone', 'Telephony', 'Pipeline'];
+      const allowedFields = ['userId', 'companyId', 'gigId', 'Last_Activity_Time', 'Activity_Tag', 'Deal_Name', 'Stage', 'Email_1', 'Phone', 'Telephony', 'Pipeline', 'value'];
       const cleanedData: any = {};
       for (const field of allowedFields) {
         if (leadData[field] !== undefined) {

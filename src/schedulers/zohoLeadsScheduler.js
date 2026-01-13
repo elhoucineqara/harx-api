@@ -9,6 +9,11 @@ const cleanLeadData = (lead) => {
   const cleanedData = {};
   for (const [key, value] of Object.entries(lead)) {
     if (!key.startsWith('$')) {
+      // Mapping Amount to value for consistency with our model
+      if (key === 'Amount') {
+        cleanedData['value'] = value;
+      }
+      
       // Gestion spéciale pour le champ Tag
       if (key === 'Tag' && Array.isArray(value)) {
         cleanedData[key] = value.map(tag => tag.name).join(', ');
@@ -62,7 +67,7 @@ const fetchUserLeads = async (zohoConfig) => {
           "Content-Type": "application/json"
         },
         params: {
-          fields: "Deal_Name,Stage,Email_1,Pipeline,Telephony, Last_Activity_Time,Phone",
+          fields: "Deal_Name,Stage,Email_1,Pipeline,Telephony,Last_Activity_Time,Phone,Amount",
           page: page,
           per_page: pageSize
         }

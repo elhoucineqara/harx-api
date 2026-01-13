@@ -100,6 +100,13 @@ interface IAvailability {
   flexibility?: string[];
 }
 
+interface IPerformance {
+  success_rate: number;
+  calls_handled: number;
+  customer_satisfaction: number;
+  avg_duration?: number;
+}
+
 interface IPersonalInfo {
   name: string;
   country?: Types.ObjectId | ITimezone; // Using Timezone as country ref as per schema? Or maybe Country model? Original schema says ref: 'Timezone' for country field? 
@@ -148,6 +155,9 @@ export interface IAgent extends Document {
   personalInfo: IPersonalInfo;
   professionalSummary: IProfessionalSummary;
   skills: ISkills;
+  performance: IPerformance;
+  rating: number;
+  name: string;
   achievements: IAchievement[];
   experience: IExperience[];
   lastUpdated: Date;
@@ -379,6 +389,14 @@ const agentSchema = new Schema<IAgent>({
     soft: [softSkillRefSchema],
     contactCenter: [contactCenterSkillSchema]
   },
+  performance: {
+    success_rate: { type: Number, default: 0 },
+    calls_handled: { type: Number, default: 0 },
+    customer_satisfaction: { type: Number, default: 0 },
+    avg_duration: { type: Number, default: 0 }
+  },
+  rating: { type: Number, default: 0 },
+  name: { type: String },
   achievements: [achievementSchema],
   experience: [experienceSchema],
   lastUpdated: { type: Date, default: Date.now },

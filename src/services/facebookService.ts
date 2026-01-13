@@ -1,5 +1,5 @@
-const axios = require('axios');
-const FacebookIntegration = require('../../models/facebookIntegration');
+import axios from 'axios';
+import FacebookIntegration from 'models/facebookIntegration';
 
 const FB_API_VERSION = 'v18.0';
 const FB_BASE_URL = `https://graph.facebook.com/${FB_API_VERSION}`;

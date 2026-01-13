@@ -1,6 +1,6 @@
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 
-const verifyCredentials = async (accessKeyId, secretAccessKey, region) => {
+const verifyCredentials = async (accessKeyId: any, secretAccessKey: any, region: any) => {
     try {
         const ses = new AWS.SES({
             accessKeyId,
@@ -51,7 +51,7 @@ const listVerifiedIdentities = async (ses) => {
     }
 };
 
-const sendEmail = async (accessKeyId, secretAccessKey, region, emailData) => {
+const sendEmail = async (accessKeyId: any, secretAccessKey: any, region: any, emailData: { from: any; to: any; cc: any; bcc: any; subject: any; text: any; html: any; }) => {
     try {
         const ses = new AWS.SES({
             accessKeyId,
