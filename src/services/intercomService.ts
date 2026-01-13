@@ -1,8 +1,8 @@
-const axios = require('axios');
-const IntercomIntegration = require('../../models/intercomIntegration');
+import axios from 'axios';
+import IntercomIntegration from '../models/IntercomIntegration';
 
 // Create Intercom API client
-const createIntercomClient = async (userId) => {
+const createIntercomClient = async (userId: any) => {
     const integration = await IntercomIntegration.findOne({ userId });
     if (!integration) throw new Error('Intercom integration not found');
 
@@ -17,7 +17,7 @@ const createIntercomClient = async (userId) => {
 };
 
 // Setup Intercom Integration
-const setupIntercom = async (userId, accessToken, appId = null, workspaceId = null) => {
+const setupIntercom = async (userId: any, accessToken: any, appId = null, workspaceId = null) => {
     let integration = await IntercomIntegration.findOne({ userId });
 
     if (!integration) {

@@ -1,6 +1,6 @@
-const hubspot = require('@hubspot/api-client');
+import hubspot from '@hubspot/api-client';
 
-const verifyCredentials = async (accessToken) => {
+const verifyCredentials = async (accessToken: any) => {
     try {
         const hubspotClient = new hubspot.Client({ accessToken });
         

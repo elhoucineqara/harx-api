@@ -1,7 +1,7 @@
-const twilio = require('twilio');
-const TwilioIntegration = require('../models/TwilioIntegration');
+import twilio from 'twilio';
+import TwilioIntegration from '../models/TwilioIntegration';
 
-exports.makeCall = async (req, res) => {
+export const makeCall = async (req: { body: { userId: any; to: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { success: boolean; error: any; }): void; new(): any; }; }; json: (arg0: { success: boolean; callSid: string; }) => void; }) => {
     const { userId, to } = req.body;
 
     if (!userId || !to) {

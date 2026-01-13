@@ -1,6 +1,6 @@
-const { WebClient } = require('@slack/web-api');
+import { WebClient } from '@slack/web-api';
 
-const sendSlackMessage = async (channelId, text, token) => {
+const sendSlackMessage = async (channelId: string, text: string, token: string) => {
     try {
         const client = new WebClient(token);
         const result = await client.chat.postMessage({
@@ -13,7 +13,7 @@ const sendSlackMessage = async (channelId, text, token) => {
     }
 };
 
-const verifySlackCredentials = async (token) => {
+const verifySlackCredentials = async (token: string) => {
     try {
         const client = new WebClient(token);
         const auth = await client.auth.test();
@@ -31,7 +31,7 @@ const verifySlackCredentials = async (token) => {
     }
 };
 
-const listChannels = async (token) => {
+const listChannels = async (token: string) => {
     try {
         const client = new WebClient(token);
         const result = await client.conversations.list({

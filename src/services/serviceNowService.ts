@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-export const verifyCredentials = async (instanceUrl, username, password) => {
+export const verifyCredentials = async (instanceUrl: string, username: string, password: string) => {
     try {
         const auth = Buffer.from(`${username}:${password}`).toString('base64');
         const response = await axios.get(`${instanceUrl}/api/now/v2/table/sys_user?sysparm_query=user_name=${username}`, {

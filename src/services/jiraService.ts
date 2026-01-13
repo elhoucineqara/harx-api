@@ -1,9 +1,9 @@
-const JiraApi = require('jira-client');
+import JiraApi from 'jira-client';
 import JiraIntegration from '../models/JiraIntegration';
 
 
 // Create Jira client
-const createJiraClient = async (userId) => {
+const createJiraClient = async (userId: any) => {
     const integration = await JiraIntegration.findOne({ userId });
     if (!integration) throw new Error('Jira integration not found');
 
@@ -18,7 +18,7 @@ const createJiraClient = async (userId) => {
 };
 
 // Setup Jira Integration
-const setupJira = async (userId, host, email, apiToken, projectKey = null) => {
+const setupJira = async (userId: any, host: string, email: string, apiToken: string, projectKey = null) => {
     let integration = await JiraIntegration.findOne({ userId });
 
     if (!integration) {

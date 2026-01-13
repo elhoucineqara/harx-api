@@ -1,7 +1,7 @@
-const sgMail = require('@sendgrid/mail');
-const sgClient = require('@sendgrid/client');
+import sgMail from '@sendgrid/mail';
+import sgClient from '@sendgrid/client';
 
-const verifyCredentials = async (apiKey) => {
+const verifyCredentials = async (apiKey: string) => {
     try {
         sgClient.setApiKey(apiKey);
         sgMail.setApiKey(apiKey);

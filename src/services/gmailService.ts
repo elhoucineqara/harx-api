@@ -1,8 +1,8 @@
-const { google } = require("googleapis");
-const GmailIntegration = require('../../models/gmailIntegration');
+import { google } from "googleapis";
+import GmailIntegration from '../models/GmailIntegration';
 
 // ✅ Function to Create OAuth2 Client
-const createOAuthClient = async (userId) => {
+const createOAuthClient = async (userId: any) => {
     const integration = await GmailIntegration.findOne({ userId });
     if (!integration) throw new Error("Gmail integration not found.");
 

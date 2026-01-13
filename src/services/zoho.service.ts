@@ -1,5 +1,5 @@
-const axios = require('axios');
-const zohoConfig = require('../config/zoho.config');
+import axios from 'axios';
+import zohoConfig from '../config/zoho.config';
 
 class ZohoService {
     constructor(config = null) {

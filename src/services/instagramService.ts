@@ -1,12 +1,12 @@
-const axios = require('axios');
-const InstagramIntegration = require('../../models/instagramIntegration');
+import axios from 'axios';
+import InstagramIntegration from '../models/InstagramIntegration';
 
 const IG_API_VERSION = 'v18.0';
 const IG_BASE_URL = `https://graph.instagram.com/${IG_API_VERSION}`;
 const FB_BASE_URL = `https://graph.facebook.com/${IG_API_VERSION}`;
 
 // Create Instagram API client
-const createInstagramClient = async (userId) => {
+const createInstagramClient = async (userId: any) => {
     const integration = await InstagramIntegration.findOne({ userId });
     if (!integration || !integration.accessToken) {
         throw new Error('Instagram integration not found or invalid');
@@ -20,7 +20,7 @@ const createInstagramClient = async (userId) => {
 };
 
 // Setup Instagram integration
-const setupInstagram = async (userId, accessToken, igUserId, businessAccountId = null) => {
+const setupInstagram = async (userId: any, accessToken: any, igUserId: any, businessAccountId = null) => {
     try {
         // Validate access token
         const response = await axios.get(`${IG_BASE_URL}/me`, {

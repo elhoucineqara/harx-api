@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const verifyCredentials = async (subdomain, email, apiToken) => {
+export const verifyCredentials = async (subdomain: string, email: string, apiToken: string) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.get(`https://${subdomain}.zendesk.com/api/v2/users/me`, {
@@ -42,7 +42,7 @@ export const verifyCredentials = async (subdomain, email, apiToken) => {
     }
 };
 
-export const createTicket = async (subdomain, email, apiToken, ticketData) => {
+export const createTicket = async (subdomain: string, email: string, apiToken: string, ticketData: any) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.post(`https://${subdomain}.zendesk.com/api/v2/tickets`, 
@@ -60,7 +60,7 @@ export const createTicket = async (subdomain, email, apiToken, ticketData) => {
     }
 };
 
-export const updateTicket = async (subdomain, email, apiToken, ticketId, ticketData) => {
+export const updateTicket = async (subdomain: string, email: string, apiToken: string, ticketId: string, ticketData: any) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.put(`https://${subdomain}.zendesk.com/api/v2/tickets/${ticketId}`,
@@ -78,7 +78,7 @@ export const updateTicket = async (subdomain, email, apiToken, ticketId, ticketD
     }
 };
 
-export const getTicket = async (subdomain, email, apiToken, ticketId) => {
+export const getTicket = async (subdomain: string, email: string, apiToken: string, ticketId: string) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.get(`https://${subdomain}.zendesk.com/api/v2/tickets/${ticketId}`, {
@@ -93,7 +93,7 @@ export const getTicket = async (subdomain, email, apiToken, ticketId) => {
     }
 };
 
-export const searchTickets = async (subdomain, email, apiToken, query) => {
+export const searchTickets = async (subdomain: string, email: string, apiToken: string, query: any) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.get(`https://${subdomain}.zendesk.com/api/v2/search`, {
@@ -111,7 +111,7 @@ export const searchTickets = async (subdomain, email, apiToken, query) => {
     }
 };
 
-export const createUser = async (subdomain, email, apiToken, userData) => {
+export const createUser = async (subdomain: string, email: string, apiToken: string, userData: any) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.post(`https://${subdomain}.zendesk.com/api/v2/users`,
@@ -129,7 +129,7 @@ export const createUser = async (subdomain, email, apiToken, userData) => {
     }
 };
 
-export const updateUser = async (subdomain, email, apiToken, userId, userData) => {
+export const updateUser = async (subdomain: string, email: string, apiToken: string, userId: string, userData: any) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.put(`https://${subdomain}.zendesk.com/api/v2/users/${userId}`,
@@ -147,7 +147,7 @@ export const updateUser = async (subdomain, email, apiToken, userId, userData) =
     }
 };
 
-export const searchUsers = async (subdomain, email, apiToken, query) => {
+export const searchUsers = async (subdomain: string, email: string, apiToken: string, query: any) => {
     try {
         const auth = Buffer.from(`${email}/token:${apiToken}`).toString('base64');
         const response = await axios.get(`https://${subdomain}.zendesk.com/api/v2/search`, {

@@ -1,11 +1,11 @@
-const axios = require('axios');
-const TwitterIntegration = require('../../models/twitterIntegration');
+import axios from 'axios';
+import TwitterIntegration from '../models/TwitterIntegration';
 
 const TWITTER_API_VERSION = '2';
 const TWITTER_BASE_URL = `https://api.twitter.com/${TWITTER_API_VERSION}`;
 
 // Create Twitter API client
-const createTwitterClient = async (userId) => {
+const createTwitterClient = async (userId: string) => {
     const integration = await TwitterIntegration.findOne({ userId });
     if (!integration || !integration.accessToken) {
         throw new Error('Twitter integration not found or invalid');
@@ -22,7 +22,7 @@ const createTwitterClient = async (userId) => {
 };
 
 // Setup Twitter integration
-const setupTwitter = async (userId, apiKey, apiKeySecret, accessToken, accessTokenSecret, bearerToken = null) => {
+const setupTwitter = async (userId: string, apiKey: string, apiKeySecret: string, accessToken: string, accessTokenSecret: string, bearerToken: string = null) => {
     try {
         // Validate credentials by making a test API call
         const headers = {
@@ -54,7 +54,7 @@ const setupTwitter = async (userId, apiKey, apiKeySecret, accessToken, accessTok
 };
 
 // Test Twitter connection
-const testConnection = async (userId) => {
+const testConnection = async (userId: string) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -85,7 +85,7 @@ const testConnection = async (userId) => {
 };
 
 // Get User Profile
-const getUserProfile = async (userId) => {
+const getUserProfile = async (userId: string) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -107,7 +107,7 @@ const getUserProfile = async (userId) => {
 };
 
 // Get User Tweets
-const getUserTweets = async (userId, maxResults = 100) => {
+const getUserTweets = async (userId: string, maxResults = 100) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -130,7 +130,7 @@ const getUserTweets = async (userId, maxResults = 100) => {
 };
 
 // Create Tweet
-const createTweet = async (userId, text, replyToId = null) => {
+const createTweet = async (userId: string, text: any, replyToId = null) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -156,7 +156,7 @@ const createTweet = async (userId, text, replyToId = null) => {
 };
 
 // Delete Tweet
-const deleteTweet = async (userId, tweetId) => {
+const deleteTweet = async (userId: string, tweetId: any) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -176,7 +176,7 @@ const deleteTweet = async (userId, tweetId) => {
 };
 
 // Get Tweet Replies
-const getTweetReplies = async (userId, tweetId) => {
+const getTweetReplies = async (userId: string, tweetId: any) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -201,7 +201,7 @@ const getTweetReplies = async (userId, tweetId) => {
 };
 
 // Like Tweet
-const likeTweet = async (userId, tweetId) => {
+const likeTweet = async (userId: string, tweetId: any) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -222,7 +222,7 @@ const likeTweet = async (userId, tweetId) => {
 };
 
 // Unlike Tweet
-const unlikeTweet = async (userId, tweetId) => {
+const unlikeTweet = async (userId: string, tweetId: any) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -242,7 +242,7 @@ const unlikeTweet = async (userId, tweetId) => {
 };
 
 // Retweet
-const retweet = async (userId, tweetId) => {
+const retweet = async (userId: string, tweetId: any) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -263,7 +263,7 @@ const retweet = async (userId, tweetId) => {
 };
 
 // Undo Retweet
-const undoRetweet = async (userId, tweetId) => {
+const undoRetweet = async (userId: string, tweetId: any) => {
     try {
         const client = await createTwitterClient(userId);
         const headers = {
@@ -283,7 +283,7 @@ const undoRetweet = async (userId, tweetId) => {
 };
 
 // Disconnect Twitter integration
-const disconnectTwitter = async (userId) => {
+const disconnectTwitter = async (userId: any) => {
     try {
         const integration = await TwitterIntegration.findOne({ userId });
         if (!integration) {
@@ -307,7 +307,7 @@ const disconnectTwitter = async (userId) => {
 };
 
 // Get Twitter integration status
-const getTwitterStatus = async (userId) => {
+const getTwitterStatus = async (userId: any) => {
     try {
         const integration = await TwitterIntegration.findOne({ userId });
         if (!integration) {

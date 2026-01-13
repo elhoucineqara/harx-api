@@ -1,5 +1,4 @@
-const mailchimp = require('@mailchimp/mailchimp_marketing');
-const mailchimpTransactional = require('@mailchimp/mailchimp_transactional');
+import mailchimp from '@mailchimp/mailchimp_marketing';
 
 const verifyCredentials = async (apiKey: string, serverPrefix?: string) => {
     try {

@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-const verifyCredentials = async (tenantId, clientId, clientSecret, accessToken) => {
+const verifyCredentials = async (tenantId: string, clientId: string, clientSecret: string, accessToken: string) => {
     try {
         const response = await axios.get('https://graph.microsoft.com/v1.0/me', {
             headers: {

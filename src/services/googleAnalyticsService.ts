@@ -1,8 +1,8 @@
-const { google } = require('googleapis');
-const GoogleAnalyticsIntegration = require('../../models/googleAnalyticsIntegration');
+import { google } from 'googleapis';
+import GoogleAnalyticsIntegration from '../models/GoogleAnalyticsIntegration';
 
 // Create OAuth2 client for Universal Analytics (UA)
-const createOAuth2Client = async (userId) => {
+const createOAuth2Client = async (userId: any) => {
     const integration = await GoogleAnalyticsIntegration.findOne({ userId });
     if (!integration) throw new Error('Google Analytics integration not found');
 
@@ -12,19 +12,29 @@ const createOAuth2Client = async (userId) => {
         'https://developers.google.com/oauthplayground'
     );
     
+    // Set credentials immediately so we can use methods on the client
+    oAuth2Client.setCredentials({
+        access_token: integration.accessToken,
+        refresh_token: integration.refreshToken
+    });
+    
     // Check if token is expired or about to expire (within 5 minutes)
     const isExpired = !integration.tokenExpiresAt || 
                       integration.tokenExpiresAt < new Date(Date.now() + 5 * 60 * 1000);
 
     if (isExpired && integration.refreshToken) {
         try {
-            const { tokens } = await oAuth2Client.refreshToken(integration.refreshToken);
+            const { credentials } = await oAuth2Client.refreshAccessToken();
             
-            integration.accessToken = tokens.access_token;
-            if (tokens.refresh_token) {
-                integration.refreshToken = tokens.refresh_token;
+            integration.accessToken = credentials.access_token;
+            if (credentials.refresh_token) {
+                integration.refreshToken = credentials.refresh_token;
             }
-            integration.tokenExpiresAt = new Date(Date.now() + tokens.expires_in * 1000);
+            
+            if (credentials.expiry_date) {
+                integration.tokenExpiresAt = new Date(credentials.expiry_date);
+            }
+            
             integration.status = 'connected';
             integration.lastConnectionAt = new Date();
             
@@ -32,20 +42,15 @@ const createOAuth2Client = async (userId) => {
         } catch (error) {
             integration.status = 'failed';
             await integration.save();
-            throw new Error(`Failed to refresh token: ${error.message}`);
+            throw new Error(`Failed to refresh token: ${error.message || error}`);
         }
     }
-
-    oAuth2Client.setCredentials({
-        access_token: integration.accessToken,
-        refresh_token: integration.refreshToken
-    });
     
     return oAuth2Client;
 };
 
 // Setup Google Analytics Integration
-const setupGoogleAnalytics = async (userId, clientId, clientSecret, refreshToken, viewId = null, isGA4 = false, measurementId = null, apiSecret = null) => {
+const setupGoogleAnalytics = async (userId: any, clientId: string, clientSecret: string, refreshToken: string, viewId = null, isGA4 = false, measurementId = null, apiSecret = null) => {
     let integration = await GoogleAnalyticsIntegration.findOne({ userId });
 
     if (!integration) {

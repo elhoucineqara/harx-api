@@ -1,13 +1,13 @@
-const { OAuth2Client, GoogleAuth } = require('google-auth-library');
-const http = require('http');
-const axios = require('axios');
-const path = require("path");
-const { Storage } = require('@google-cloud/storage');
-const { VertexAI } = require('@google-cloud/vertexai');
-const { generateCallScoringPrompt } = require('../prompts/call-scoring-prompt');
-const { generateCallPostActionsPrompt } = require('../prompts/call-action-plan');
-const { generateAudioSummaryPrompt } = require('../prompts/call-summary-prompt');
-const { parseCleanJson } = require('../parsers/parse-call-scoring-result');
+import { OAuth2Client, GoogleAuth } from 'google-auth-library';
+import http from 'http';
+import axios from 'axios';
+import path from "path";
+import { Storage } from '@google-cloud/storage';
+import { VertexAI, Part } from '@google-cloud/vertexai';
+import { generateCallScoringPrompt } from '../prompts/call-scoring-prompt';
+import { generateCallPostActionsPrompt } from '../prompts/call-action-plan';
+import { generateAudioSummaryPrompt } from '../prompts/call-summary-prompt';
+import { parseCleanJson } from '../parsers/parse-call-scoring-result';
 
 
 // Retreive OAUTH2.0 credentials and Google Cloud variables form .env
@@ -39,7 +39,7 @@ if (missingVars.length > 0) {
 const keyPath = path.join(__dirname, "../config/vertexServiceAccount.json");
 
 // Vérifier si le fichier de service account existe
-const fs = require('fs');
+import fs from 'fs';
 if (!fs.existsSync(keyPath)) {
     console.warn('Warning: Service account file not found at:', keyPath);
     console.warn('Make sure to place your service account JSON file at this location');
@@ -73,11 +73,11 @@ exports.getAudioSummary = async (file_uri) => {
             contents: [{
                 role: 'user', parts: [
                     {
-                        "file_data": {
-                            "mime_type": "audio/mpeg", // we can change the mime_type after
-                            "file_uri": file_uri
+                        fileData: {
+                            mimeType: "audio/mpeg", // we can change the mime_type after
+                            fileUri: file_uri
                         }
-                    },
+                    } as Part,
                     {
                         "text": generateAudioSummaryPrompt()
                     }
@@ -106,11 +106,11 @@ exports.getAudioTranscription = async (file_uri) => {
             contents: [{
                 role: 'user', parts: [
                     {
-                        "file_data": {
-                            "mime_type": "audio/mpeg", // we can change the mime_type after
-                            "file_uri": file_uri
+                        fileData: {
+                            mimeType: "audio/mpeg", // we can change the mime_type after
+                            fileUri: file_uri
                         }
-                    },
+                    } as Part,
                     {
                         "text": "Generate a transcription of the audio, only extract speech and ignore background audio."
                     }
@@ -136,11 +136,11 @@ exports.getCallScoring = async (file_uri) => {
             contents: [{
                 role: 'user', parts: [
                     {
-                        "file_data": {
-                            "mime_type": "audio/wav", // we can change the mime_type after
-                            "file_uri": file_uri
+                        fileData: {
+                            mimeType: "audio/wav", // we can change the mime_type after
+                            fileUri: file_uri
                         }
-                    },
+                    } as Part,
                     {
                         "text": generateCallScoringPrompt()
                     }
@@ -165,11 +165,11 @@ exports.getCallPostActions = async (file_uri) => {
             contents: [{
                 role: 'user', parts: [
                     {
-                        "file_data": {
-                            "mime_type": "audio/wav", // we can change the mime_type after
-                            "file_uri": file_uri
+                        fileData: {
+                            mimeType: "audio/wav", // we can change the mime_type after
+                            fileUri: file_uri
                         }
-                    },
+                    } as Part,
                     {
                         "text": generateCallPostActionsPrompt()
                     }

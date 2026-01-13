@@ -57,7 +57,7 @@
     "src/utils/matchingAlgorithm.ts",
     "src/utils/matchingUtils.ts",
     "src/utils/relationshipSync.ts",
-    "src/services/zoho.service.ts",
+
     "src/services/vertexService.ts",
     "src/services/vertex.ts",
     "src/routes/zoho.ts",

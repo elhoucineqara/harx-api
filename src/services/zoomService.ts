@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-export const verifyCredentials = async (accountId, clientId, clientSecret, accessToken) => {
+export const verifyCredentials = async (accountId: string, clientId: string, clientSecret: string, accessToken: string) => {
     try {
         const response = await axios.get('https://api.zoom.us/v2/users/me', {
             headers: {
@@ -46,7 +46,7 @@ export const verifyCredentials = async (accountId, clientId, clientSecret, acces
     }
 };
 
-export const createMeeting = async (accessToken, meetingData) => {
+export const createMeeting = async (accessToken: string, meetingData: any) => {
     try {
         const response = await axios.post('https://api.zoom.us/v2/users/me/meetings', meetingData, {
             headers: {
@@ -60,7 +60,7 @@ export const createMeeting = async (accessToken, meetingData) => {
     }
 };
 
-export const getMeeting = async (accessToken, meetingId) => {
+export const getMeeting = async (accessToken: string, meetingId: string) => {
     try {
         const response = await axios.get(`https://api.zoom.us/v2/meetings/${meetingId}`, {
             headers: {
@@ -74,7 +74,7 @@ export const getMeeting = async (accessToken, meetingId) => {
     }
 };
 
-export const listMeetings = async (accessToken, filters = {}) => {
+export const listMeetings = async (accessToken: string, filters = {}) => {
     try {
         const response = await axios.get('https://api.zoom.us/v2/users/me/meetings', {
             headers: {
@@ -89,7 +89,7 @@ export const listMeetings = async (accessToken, filters = {}) => {
     }
 };
 
-export const createWebinar = async (accessToken, webinarData) => {
+export const createWebinar = async (accessToken: string, webinarData: any) => {
     try {
         const response = await axios.post('https://api.zoom.us/v2/users/me/webinars', webinarData, {
             headers: {
@@ -103,7 +103,7 @@ export const createWebinar = async (accessToken, webinarData) => {
     }
 };
 
-export const getWebinar = async (accessToken, webinarId) => {
+export const getWebinar = async (accessToken: string, webinarId: string) => {
     try {
         const response = await axios.get(`https://api.zoom.us/v2/webinars/${webinarId}`, {
             headers: {
@@ -117,7 +117,7 @@ export const getWebinar = async (accessToken, webinarId) => {
     }
 };
 
-export const listWebinars = async (accessToken, filters = {}) => {
+export const listWebinars = async (accessToken: string, filters = {}) => {
     try {
         const response = await axios.get('https://api.zoom.us/v2/users/me/webinars', {
             headers: {

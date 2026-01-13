@@ -1,8 +1,9 @@
-const ovh = require('ovh');
-const OvhIntegration = require('../../models/OvhIntegration');
+import ovh from 'ovh';
+import OvhIntegration from '../models/OvhIntegration';
+import { ParsedQs } from 'qs';
 
 // Create OVH API client
-const createOvhClient = async (userId) => {
+const createOvhClient = async (userId: any) => {
     const integration = await OvhIntegration.findOne({ userId });
     if (!integration) throw new Error('OVH integration not found');
 
@@ -15,7 +16,7 @@ const createOvhClient = async (userId) => {
 };
 
 // Setup OVH Integration
-const setupOvh = async (userId, applicationKey, applicationSecret, consumerKey, endpoint = 'ovh-eu') => {
+const setupOvh = async (userId: any, applicationKey: string, applicationSecret: string, consumerKey: string, endpoint = 'ovh-eu') => {
     let integration = await OvhIntegration.findOne({ userId });
 
     if (!integration) {
@@ -42,7 +43,7 @@ const setupOvh = async (userId, applicationKey, applicationSecret, consumerKey, 
 };
 
 // Test connection to OVH
-const testConnection = async (userId) => {
+const testConnection = async (userId: any) => {
     const integration = await OvhIntegration.findOne({ userId });
     if (!integration) throw new Error('OVH integration not found');
 
@@ -69,109 +70,109 @@ const testConnection = async (userId) => {
 };
 
 // Get account details
-const getAccount = async (userId) => {
+const getAccount = async (userId: string | ParsedQs | (string | ParsedQs)[]) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', '/me');
 };
 
 // Get services
-const getServices = async (userId) => {
+const getServices = async (userId: string | ParsedQs | (string | ParsedQs)[]) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', '/me/service');
 };
 
 // Get a specific service
-const getService = async (userId, serviceId) => {
+const getService = async (userId: string | ParsedQs | (string | ParsedQs)[], serviceId: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', `/me/service/${serviceId}`);
 };
 
 // Get domains
-const getDomains = async (userId) => {
+const getDomains = async (userId: string | ParsedQs | (string | ParsedQs)[]) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', '/domain');
 };
 
 // Get a specific domain
-const getDomain = async (userId, domainName) => {
+const getDomain = async (userId: string | ParsedQs | (string | ParsedQs)[], domainName: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', `/domain/${domainName}`);
 };
 
 // Get domain records
-const getDomainRecords = async (userId, domainName) => {
+const getDomainRecords = async (userId: string | ParsedQs | (string | ParsedQs)[], domainName: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', `/domain/zone/${domainName}/record`);
 };
 
 // Get a specific domain record
-const getDomainRecord = async (userId, domainName, recordId) => {
+const getDomainRecord = async (userId: string | ParsedQs | (string | ParsedQs)[], domainName: string, recordId: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', `/domain/zone/${domainName}/record/${recordId}`);
 };
 
 // Create a domain record
-const createDomainRecord = async (userId, domainName, recordData) => {
+const createDomainRecord = async (userId: string | ParsedQs | (string | ParsedQs)[], domainName: string, recordData: any) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('POST', `/domain/zone/${domainName}/record`, recordData);
 };
 
 // Update a domain record
-const updateDomainRecord = async (userId, domainName, recordId, recordData) => {
+const updateDomainRecord = async (userId: string | ParsedQs | (string | ParsedQs)[], domainName: string, recordId: string, recordData: any) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('PUT', `/domain/zone/${domainName}/record/${recordId}`, recordData);
 };
 
 // Delete a domain record
-const deleteDomainRecord = async (userId, domainName, recordId) => {
+const deleteDomainRecord = async (userId: string | ParsedQs | (string | ParsedQs)[], domainName: string, recordId: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('DELETE', `/domain/zone/${domainName}/record/${recordId}`);
 };
 
 // Refresh domain zone
-const refreshDomainZone = async (userId, domainName) => {
+const refreshDomainZone = async (userId: string | ParsedQs | (string | ParsedQs)[], domainName: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('POST', `/domain/zone/${domainName}/refresh`);
 };
 
 // Get VPS list
-const getVpsList = async (userId) => {
+const getVpsList = async (userId: string | ParsedQs | (string | ParsedQs)[]) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', '/vps');
 };
 
 // Get VPS details
-const getVpsDetails = async (userId, serviceName) => {
+const getVpsDetails = async (userId: string | ParsedQs | (string | ParsedQs)[], serviceName: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', `/vps/${serviceName}`);
 };
 
 // Get VPS status
-const getVpsStatus = async (userId, serviceName) => {
+const getVpsStatus = async (userId: string | ParsedQs | (string | ParsedQs)[], serviceName: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', `/vps/${serviceName}/status`);
 };
 
 // Reboot VPS
-const rebootVps = async (userId, serviceName) => {
+const rebootVps = async (userId: string | ParsedQs | (string | ParsedQs)[], serviceName: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('POST', `/vps/${serviceName}/reboot`);
 };
 
 // Get dedicated servers
-const getDedicatedServers = async (userId) => {
+const getDedicatedServers = async (userId: string | ParsedQs | (string | ParsedQs)[]) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', '/dedicated/server');
 };
 
 // Get dedicated server details
-const getDedicatedServerDetails = async (userId, serviceName) => {
+const getDedicatedServerDetails = async (userId: string | ParsedQs | (string | ParsedQs)[], serviceName: string) => {
     const client = await createOvhClient(userId);
     return client.requestPromised('GET', `/dedicated/server/${serviceName}`);
 };
 
 // Disconnect OVH
-const disconnectOvh = async (userId) => {
+const disconnectOvh = async (userId: string | ParsedQs | (string | ParsedQs)[]) => {
     const integration = await OvhIntegration.findOne({ userId });
     if (!integration) throw new Error('OVH integration not found');
 
@@ -181,7 +182,7 @@ const disconnectOvh = async (userId) => {
 };
 
 // Get OVH Integration Status
-const getOvhStatus = async (userId) => {
+const getOvhStatus = async (userId: string | ParsedQs | (string | ParsedQs)[]) => {
     const integration = await OvhIntegration.findOne({ userId });
     if (!integration) throw new Error('OVH integration not found');
     

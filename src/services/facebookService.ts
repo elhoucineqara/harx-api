@@ -1,11 +1,11 @@
 import axios from 'axios';
-import FacebookIntegration from 'models/facebookIntegration';
+import FacebookIntegration from '../models/FacebookIntegration';
 
 const FB_API_VERSION = 'v18.0';
 const FB_BASE_URL = `https://graph.facebook.com/${FB_API_VERSION}`;
 
 // Create Facebook API client
-const createFacebookClient = async (userId) => {
+const createFacebookClient = async (userId: any) => {
     const integration = await FacebookIntegration.findOne({ userId });
     if (!integration || !integration.accessToken) {
         throw new Error('Facebook integration not found or invalid');
@@ -19,7 +19,7 @@ const createFacebookClient = async (userId) => {
 };
 
 // Setup Facebook integration
-const setupFacebook = async (userId, accessToken, pageId = null, pageAccessToken = null) => {
+const setupFacebook = async (userId: any, accessToken: any, pageId = null, pageAccessToken = null) => {
     try {
         // Validate access token
         const response = await axios.get(`${FB_BASE_URL}/me`, {

@@ -1,8 +1,8 @@
-const axios = require('axios');
-const LiveChatIntegration = require('../../models/liveChatIntegration');
+import axios from 'axios';
+import LiveChatIntegration from '../models/liveChatIntegration';
 
 // Create LiveChat API client
-const createLiveChatClient = async (userId) => {
+const createLiveChatClient = async (userId: any) => {
     const integration = await LiveChatIntegration.findOne({ userId });
     if (!integration) throw new Error('LiveChat integration not found');
 

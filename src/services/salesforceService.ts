@@ -1,6 +1,6 @@
-const jsforce = require('jsforce');
+import jsforce from 'jsforce';
 
-export const verifyCredentials = async (instanceUrl, accessToken) => {
+export const verifyCredentials = async (instanceUrl: string, accessToken: string) => {
     try {
         const conn = new jsforce.Connection({
             instanceUrl: instanceUrl,
@@ -28,7 +28,7 @@ export const verifyCredentials = async (instanceUrl, accessToken) => {
     }
 };
 
-export const refreshAccessToken = async (clientId, clientSecret, refreshToken, instanceUrl) => {
+export const refreshAccessToken = async (clientId: string, clientSecret: string, refreshToken: string, instanceUrl: string) => {
     try {
         const conn = new jsforce.Connection({
             oauth2: {
@@ -51,7 +51,7 @@ export const refreshAccessToken = async (clientId, clientSecret, refreshToken, i
     }
 };
 
-export const createRecord = async (objectName, data, instanceUrl, accessToken) => {
+export const createRecord = async (objectName: string, data: any, instanceUrl: string, accessToken: string) => {
     try {
         const conn = new jsforce.Connection({
             instanceUrl: instanceUrl,
@@ -65,7 +65,7 @@ export const createRecord = async (objectName, data, instanceUrl, accessToken) =
     }
 };
 
-export const queryRecords = async (soql, instanceUrl, accessToken) => {
+export const queryRecords = async (soql: string, instanceUrl: string, accessToken: string) => {
     try {
         const conn = new jsforce.Connection({
             instanceUrl: instanceUrl,
@@ -79,7 +79,7 @@ export const queryRecords = async (soql, instanceUrl, accessToken) => {
     }
 };
 
-export const updateRecord = async (objectName, id, data, instanceUrl, accessToken) => {
+export const updateRecord = async (objectName: string, id: string, data: any, instanceUrl: string, accessToken: string) => {
     try {
         const conn = new jsforce.Connection({
             instanceUrl: instanceUrl,
@@ -93,7 +93,7 @@ export const updateRecord = async (objectName, id, data, instanceUrl, accessToke
     }
 };
 
-export const describeObject = async (objectName, instanceUrl, accessToken) => {
+export const describeObject = async (objectName: string, instanceUrl: string, accessToken: string) => {
     try {
         const conn = new jsforce.Connection({
             instanceUrl: instanceUrl,

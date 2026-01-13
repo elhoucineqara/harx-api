@@ -1,6 +1,6 @@
-const axios = require('axios');
+import axios from 'axios';
 
-const verifyCredentials = async (domain, apiKey) => {
+const verifyCredentials = async (domain: any, apiKey: any) => {
     try {
         const response = await axios.get(`https://${domain}/api/v2/agents/me`, {
             headers: {

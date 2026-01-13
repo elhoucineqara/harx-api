@@ -1,16 +1,16 @@
-const { logger } = require('../utils/logger');
-const { chunkDocument } = require('../utils/textProcessing');
+import { logger } from '../utils/logger';
+import { chunkDocument } from '../utils/textProcessing';
 
 /**
  * Prepare training data for fine-tuning from documents
  * @param {Array} documents - Array of documents to use for training
  * @returns {Promise<Array<string>>} Array of JSONL formatted training examples
  */
-async function prepareTrainingData(documents) {
+async function prepareTrainingData(documents: any) {
   try {
     logger.info(`Preparing training data from ${documents.length} documents`);
     
-    const trainingData = [];
+    const trainingData: any = [];
     
     // Process each document
     for (const document of documents) {
