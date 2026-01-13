@@ -2,6 +2,9 @@ import axios from 'axios';
 import zohoConfig from '../config/zoho.config';
 
 class ZohoService {
+    accessToken: string | null;
+    config: any;
+
     constructor(config = null) {
         this.accessToken = null;
         this.config = config || zohoConfig;
