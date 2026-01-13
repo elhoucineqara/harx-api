@@ -15,7 +15,7 @@ const ovhService = {
     throw new Error('OVH service not available - package "ovh" not installed');
   }
 };
-import twilioService from '../services/integrations/twilioService';
+import twilioService from '../services/integrations/TwilioService';
 // import qalqulService from '../services/integrations/qaqlulService';
 // import telnyxService from '../services/integrations/telnyxService';
 // Temporary stub for telnyxService until the service is created
