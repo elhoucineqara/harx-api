@@ -1,5 +1,5 @@
 import axios from 'axios';
-import LiveChatIntegration from '../models/liveChatIntegration';
+import LiveChatIntegration from '../models/LiveChatIntegration';
 
 // Create LiveChat API client
 const createLiveChatClient = async (userId: any) => {
