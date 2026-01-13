@@ -44,4 +44,3 @@ class DashboardService {
 }
 
 export { DashboardService };
-module.exports = { DashboardService };
