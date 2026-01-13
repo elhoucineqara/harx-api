@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { authenticate } from '@/lib/auth-middleware';
-import { TwilioService } from '@/services/integrations/twilioService';
+import { TwilioService } from '@/services/integrations/TwilioService';
 
 export const post = async (req: Request, res: Response) => {
   const user = authenticate(req);

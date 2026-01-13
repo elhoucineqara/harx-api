@@ -1,5 +1,3 @@
-// harx/services/ai/prompts/contactCenterAssessment.ts
-
 export const generatePrompt = (scenarioData: any) => {
     return `
       You are an expert Contact Center Evaluator. 

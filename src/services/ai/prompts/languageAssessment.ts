@@ -1,5 +1,3 @@
-// harx/services/ai/prompts/languageAssessment.ts
-
 export const generateLanguagePrompt = (textToCompare: string) => {
     return `
       You are an expert Language Assessor.

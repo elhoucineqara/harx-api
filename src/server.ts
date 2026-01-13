@@ -152,16 +152,19 @@ process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
   logger.error('Reason:', reason);
 });
 
-try {
-  const { startZohoTokenScheduler } = require('./schedulers/zohoTokenScheduler');
-  const { startZohoLeadsScheduler } = require('./schedulers/zohoLeadsScheduler');
+// Import Zoho schedulers
+(async () => {
+  try {
+    const { startZohoTokenScheduler } = await import('./schedulers/zohoTokenScheduler');
+    const { startZohoLeadsScheduler } = await import('./schedulers/zohoLeadsScheduler');
 
-  startZohoTokenScheduler();
-  startZohoLeadsScheduler();
-  console.log('✅ Zoho schedulers started');
-} catch (error: any) {
-  console.warn('⚠️  Could not start Zoho schedulers:', error?.message || 'Unknown error');
-}
+    startZohoTokenScheduler();
+    startZohoLeadsScheduler();
+    console.log('✅ Zoho schedulers started');
+  } catch (error: any) {
+    console.warn('⚠️  Could not start Zoho schedulers:', error?.message || 'Unknown error');
+  }
+})();
 
 app.listen(PORT, () => {
   console.log(`\n🚀 Backend server running on http://localhost:${PORT}`);

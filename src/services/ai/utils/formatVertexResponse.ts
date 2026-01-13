@@ -1,5 +1,3 @@
-// harx/services/ai/utils/formatVertexResponse.ts
-
 export const cleanAndFormatResponse = (response: any) => {
     try {
         const text = response.candidates[0].content.parts[0].text;
